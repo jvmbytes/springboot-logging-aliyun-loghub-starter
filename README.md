@@ -1,6 +1,5 @@
-spring boot logback log to aliyun loghub
+# spring boot logback log to aliyun loghub
 
-# 1. logstash tcp socket
 maven dependency:
 ```
 <dependency>
