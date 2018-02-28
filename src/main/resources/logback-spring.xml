@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <springProperty name="loghub.enable" source="loghub.enable" defaultValue="true"/>
+    <springProperty name="loghub.disable_other_appenders" source="loghub.disable_other_appenders"
+                    defaultValue="false"/>
+    <springProperty name="loghub.console_output_logback_status"
+                    source="loghub.console_output_logback_status"
+                    defaultValue="false"/>
+    <springProperty name="loghub.endpoint" source="loghub.endpoint" defaultValue="none"/>
+    <springProperty name="loghub.access_key_id" source="loghub.access_key_id"/>
+    <springProperty name="loghub.access_key" source="loghub.access_key"/>
+    <springProperty name="loghub.project_name" source="loghub.project_name"/>
+    <springProperty name="loghub.log_store" source="loghub.log_store"/>
+    <springProperty name="loghub.topic" source="loghub.topic" defaultValue=""/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="LOG_FILE"
+              value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>
+
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
+
+    <if condition='property("loghub.enable").equalsIgnoreCase("false") || property("loghub.endpoint").equals("none")'>
+        <then>
+            <root level="INFO">
+                <appender-ref ref="CONSOLE"/>
+                <appender-ref ref="FILE"/>
+            </root>
+        </then>
+        <else>
+            <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+            <appender name="ALIYUN_LOGHUB"
+                      class="com.aliyun.openservices.log.logback.LoghubAppender">
+                <endpoint>${loghub.endpoint}</endpoint>
+                <accessKeyId>${loghub.access_key_id}</accessKeyId>
+                <accessKey>${loghub.access_key}</accessKey>
+                <projectName>${loghub.project_name}</projectName>
+                <logstore>${loghub.log_store}</logstore>
+                <topic>${loghub.topic}</topic>
+
+                <packageTimeoutInMS>3000</packageTimeoutInMS>
+                <logsCountPerPackage>4096</logsCountPerPackage>
+                <logsBytesPerPackage>3145728</logsBytesPerPackage>
+                <memPoolSizeInByte>104857600</memPoolSizeInByte>
+                <retryTimes>3</retryTimes>
+                <maxIOThreadSizeInPool>8</maxIOThreadSizeInPool>
+            </appender>
+
+            <if condition='property("loghub.disable_other_appenders").equalsIgnoreCase("true")'>
+                <then>
+                    <root level="INFO">
+                        <appender-ref ref="ALIYUN_LOGHUB"/>
+                    </root>
+                </then>
+                <else>
+                    <root level="INFO">
+                        <appender-ref ref="CONSOLE"/>
+                        <appender-ref ref="FILE"/>
+                        <appender-ref ref="ALIYUN_LOGHUB"/>
+                    </root>
+                </else>
+            </if>
+
+            <if condition='property("loghub.console_output_logback_status").equalsIgnoreCase("true")'>
+                <then>
+                    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+                </then>
+            </if>
+        </else>
+    </if>
+</configuration>
