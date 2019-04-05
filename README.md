@@ -1,5 +1,7 @@
 # spring boot logback log to aliyun loghub
 
+**NOT update in time, any pull request is welcome!**
+
 ##  Usage
 
 First, copy the [logback-spring.xml](https://raw.githubusercontent.com/wongoo/springboot-logging-aliyun-loghub-starter/master/src/main/resources/logback-spring.xml)
