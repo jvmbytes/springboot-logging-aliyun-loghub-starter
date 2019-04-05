@@ -4,10 +4,14 @@
 
 ##  Usage
 
-First, copy the [logback-spring.xml](https://raw.githubusercontent.com/wongoo/springboot-logging-aliyun-loghub-starter/master/src/main/resources/logback-spring.xml)
-to your project.
+**First**, copy the [logback-spring.xml](https://raw.githubusercontent.com/wongoo/springboot-logging-aliyun-loghub-starter/master/src/main/resources/logback-spring.xml)
+to your project. 
+**NOTE: NOT change the file name!** 
+logback find config file orderly, it will find `logback-spring.xml` first 
+than `logback.xml`. So your can package and upload this library to repository,
+and add maven dependency to over the config `logback.xml` in your project.
 
-Then add loghub config:
+**Then**, add loghub config:
 ```
 spring.application.name=test
 
