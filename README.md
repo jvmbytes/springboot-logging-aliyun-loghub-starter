@@ -1,15 +1,11 @@
 # spring boot logback log to aliyun loghub
 
-maven dependency:
-```
-<dependency>
-    <groupId>springboot.logging.aliyun.loghub</groupId>
-    <artifactId>springboot-logging-aliyun-loghub-starter</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
+##  Usage
 
-config sample:
+First, copy the [logback-spring.xml](https://raw.githubusercontent.com/wongoo/springboot-logging-aliyun-loghub-starter/master/src/main/resources/logback-spring.xml)
+to your project.
+
+Then add loghub config:
 ```
 spring.application.name=test
 
@@ -26,5 +22,5 @@ loghub.topic=${spring.application.name}
 
 NOTE: loghub appender will enable only when `loghub.enable!=false`  and `loghub.endpoint` configured.
 
-# reference:
+## Reference:
 - aliyun-log-logback-appender, https://github.com/aliyun/aliyun-log-logback-appender
