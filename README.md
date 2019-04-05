@@ -9,7 +9,7 @@ to your project.
 **NOTE: NOT change the file name!** 
 logback find config file orderly, it will find `logback-spring.xml` first 
 than `logback.xml`. So your can package and upload this library to repository,
-and add maven dependency to over the config `logback.xml` in your project.
+and add maven dependency to overwrite the config `logback.xml` in your project.
 
 **Then**, add loghub config:
 ```
