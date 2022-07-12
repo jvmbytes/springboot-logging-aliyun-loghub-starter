@@ -19,7 +19,7 @@
     </distributionManagement>
 
     <properties>
-        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
+        <spring.boot.version>2.2.11.RELEASE</spring.boot.version>
     </properties>
 
     <dependencies>
